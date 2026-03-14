@@ -1,0 +1,76 @@
+<%- include('partials/header') %>
+
+<div class="px-4 py-8 sm:px-0">
+    <div class="max-w-3xl mx-auto">
+        <div class="bg-white/60 backdrop-blur-xl border border-white/60 shadow-2xl shadow-indigo-100/50 sm:rounded-2xl overflow-hidden ring-1 ring-slate-200/50">
+            <div class="px-6 py-6 sm:px-8 border-b border-slate-200/60 flex justify-between items-center bg-slate-50/50">
+                <h3 class="text-xl leading-6 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-indigo-800 tracking-tight font-outfit"><%= title %></h3>
+                <a href="/" class="text-indigo-600 hover:text-indigo-800 text-sm font-bold flex items-center transition-all hover:-translate-x-1">
+                    <svg class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                    Kembali
+                </a>
+            </div>
+            
+            <div class="p-6 sm:p-8">
+                <form action="<%= isEdit ? '/edit/' + alumni.id : '/add' %>" method="POST">
+                    <div class="grid grid-cols-1 gap-7">
+                        <div>
+                            <label for="namaLengkap" class="block text-sm font-bold text-slate-700 font-outfit">Nama Lengkap</label>
+                            <input type="text" name="namaLengkap" id="namaLengkap" class="mt-2 p-3 block w-full bg-white/50 border border-slate-200 rounded-xl shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium text-slate-700" required value="<%= alumni.namaLengkap || '' %>">
+                        </div>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label for="prodi" class="block text-sm font-bold text-slate-700 font-outfit">Program Studi</label>
+                                <input type="text" name="prodi" id="prodi" class="mt-2 p-3 block w-full bg-white/50 border border-slate-200 rounded-xl shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium text-slate-700" required value="<%= alumni.prodi || '' %>">
+                            </div>
+                            <div>
+                                <label for="tahunLulus" class="block text-sm font-bold text-slate-700 font-outfit">Tahun Lulus</label>
+                                <input type="number" name="tahunLulus" id="tahunLulus" class="mt-2 p-3 block w-full bg-white/50 border border-slate-200 rounded-xl shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium text-slate-700" required value="<%= alumni.tahunLulus || '' %>">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="kampus" class="block text-sm font-bold text-slate-700 font-outfit">Kampus / Universitas</label>
+                            <input type="text" name="kampus" id="kampus" class="mt-2 p-3 block w-full bg-white/50 border border-slate-200 rounded-xl shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium text-slate-700" required value="<%= alumni.kampus || '' %>">
+                        </div>
+
+                        <hr class="my-3 border-slate-200/80">
+                        
+                        <div>
+                            <label for="status" class="block text-sm font-bold text-slate-700 font-outfit">Status Pelacakan</label>
+                            <select name="status" id="status" class="mt-2 p-3 block w-full bg-white/70 border border-slate-200 rounded-xl shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium text-slate-700">
+                                <option value="Teridentifikasi dari Sumber Publik" <%= alumni.status === 'Teridentifikasi dari Sumber Publik' ? 'selected' : '' %>>Teridentifikasi dari Sumber Publik</option>
+                                <option value="Perlu Verifikasi Manual" <%= alumni.status === 'Perlu Verifikasi Manual' ? 'selected' : '' %>>Perlu Verifikasi Manual</option>
+                                <option value="Belum Ditemukan di Sumber Publik" <%= alumni.status === 'Belum Ditemukan di Sumber Publik' ? 'selected' : '' %>>Belum Ditemukan di Sumber Publik</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="confidenceScore" class="block text-sm font-bold text-slate-700 font-outfit">Confidence Score (%)</label>
+                            <input type="number" name="confidenceScore" id="confidenceScore" min="0" max="100" class="mt-2 p-3 block w-full bg-white/50 border border-slate-200 rounded-xl shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium text-slate-700" required value="<%= alumni.confidenceScore || 0 %>">
+                        </div>
+                        
+                        <div>
+                            <label for="jejak" class="block text-sm font-bold text-slate-700 font-outfit">Jejak Bukti <span class="text-slate-400 font-normal">(mis. Profil LinkedIn/Scholar)</span></label>
+                            <textarea name="jejak" id="jejak" rows="3" class="mt-2 p-3 block w-full bg-white/50 border border-slate-200 rounded-xl shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium text-slate-700"><%= alumni.jejak || '' %></textarea>
+                        </div>
+
+                        <div class="mt-8 flex flex-col sm:flex-row gap-4 pt-2">
+                            <button type="submit" class="w-full sm:w-auto inline-flex justify-center items-center py-3 px-8 border border-transparent shadow-lg shadow-indigo-500/30 text-sm font-bold rounded-xl text-white bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 focus:outline-none transition-all duration-300 hover:-translate-y-0.5">
+                                <%= isEdit ? 'Simpan Perubahan' : 'Tambah Data' %>
+                            </button>
+                            <a href="/" class="w-full sm:w-auto inline-flex justify-center items-center py-3 px-8 border border-slate-200 shadow-sm text-sm font-bold rounded-xl text-slate-700 bg-white hover:bg-slate-50 focus:outline-none transition-all duration-300">
+                                Batal
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>
