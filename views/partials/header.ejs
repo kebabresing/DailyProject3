@@ -27,14 +27,32 @@
                     </a>
                 </div>
                 <!-- Navigation Links -->
-                <div class="hidden sm:flex space-x-1">
-                    <a href="/" class="text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/50 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300">Data Master</a>
-                    <a href="/laporan" class="text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/50 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300">Laporan Statistik</a>
+                <div class="hidden sm:flex items-center space-x-1">
+                    <a href="/" class="text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/50 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300">Laporan Statistik</a>
+                    <a href="/data" class="text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/50 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300">Data Master</a>
+                    <% if (user) { %>
+                    <div class="flex items-center gap-3 ml-4 pl-4 border-l border-slate-200">
+                        <div class="text-right">
+                            <div class="text-xs text-slate-400 font-medium">Login sebagai</div>
+                            <div class="text-sm font-bold text-slate-700"><%= user.namaLengkap %></div>
+                        </div>
+                        <form action="/logout" method="POST">
+                            <button type="submit" class="bg-red-50 hover:bg-red-100 text-red-600 text-xs font-bold px-3 py-2 rounded-lg transition-all duration-200 border border-red-100 hover:border-red-200">
+                                🚪 Keluar
+                            </button>
+                        </form>
+                    </div>
+                    <% } %>
                 </div>
-                <!-- Mobile Navigation (Simple fallback for demo) -->
-                <div class="flex sm:hidden space-x-2">
-                     <a href="/" class="text-indigo-600 text-sm font-semibold bg-indigo-50 px-3 py-1.5 rounded-lg">Data</a>
-                     <a href="/laporan" class="text-indigo-600 text-sm font-semibold bg-indigo-50 px-3 py-1.5 rounded-lg">Laporan</a>
+                <!-- Mobile Navigation -->
+                <div class="flex sm:hidden items-center space-x-2">
+                     <a href="/" class="text-indigo-600 text-sm font-semibold bg-indigo-50 px-3 py-1.5 rounded-lg">Laporan</a>
+                     <a href="/data" class="text-indigo-600 text-sm font-semibold bg-indigo-50 px-3 py-1.5 rounded-lg">Data</a>
+                     <% if (user) { %>
+                     <form action="/logout" method="POST">
+                         <button type="submit" class="text-red-500 text-sm font-semibold bg-red-50 px-3 py-1.5 rounded-lg border border-red-100">Keluar</button>
+                     </form>
+                     <% } %>
                 </div>
             </div>
         </div>

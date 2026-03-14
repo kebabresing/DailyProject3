@@ -1,5 +1,8 @@
 # 🎓 Alumni Tracker - Daily Project 3
 
+**Akhmad Zamri Ardani | 202310370311406**  
+**Rekayasa Kebutuhan A – Universitas Muhammadiyah Malang**
+
 ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
 ![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)
@@ -8,7 +11,6 @@
 > **Sistem Informasi Pelacakan Profil Publik Alumni Berbasis Web**
 > 
 > *Proyek ini dikembangkan untuk merealisasikan **Daily Project 2** (Pseudocode & Usecase Diagram) menjadi bentuk Prototype Antarmuka Web Interaktif.*
-
 ---
 
 ## 📖 Deskripsi Sistem
@@ -121,7 +123,3 @@ Pengujian Prototipe web aplikasi ini dilakukan berdasarkan spesifikasi kualitas 
 | 6 | **Performance Efficiency** (Kinerja Bawaan) | Memuat halaman "Laporan Statistik" komprehensif. | Halaman laporan (meliputi pengkalkulasian agregat persentase) dan *Doughnut Chart* termuat cepat dalam hitungan sekejab (<1 detik). | ✅ **Lulus / Sesuai** |
 
 ---
-
-### *Disusun Oleh:*
-**Akhmad Zamri Ardani** - NIM: **202310370311406**
-*(Kelas: Rekayasa Kebutuhan A)*
