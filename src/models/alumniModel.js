@@ -5,6 +5,10 @@ class Alumni {
     return await db.getAlumni(search);
   }
 
+  static async getAllPaginated(search = '', page = 1, limit = 50) {
+    return await db.getAlumniPaginated(search, page, limit);
+  }
+
   static async getById(id) {
     return await db.getAlumniById(id);
   }

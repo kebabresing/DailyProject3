@@ -1,13 +1,13 @@
 const bcrypt = require('bcryptjs');
 
 // Akun default admin (username & password bisa diganti di sini)
-// Password di-hash dengan bcryptjs
+// Untuk generate hash baru: node -e "console.log(require('bcryptjs').hashSync('PASSWORD_BARU', 10))"
 const USERS = [
   {
     id: 1,
     username: 'admin',
-    // Password: admin123 (sudah di-hash)
-    passwordHash: bcrypt.hashSync('admin123', 10),
+    // Password: Dp3!406
+    passwordHash: '$2b$10$3FDTDt8YAkqPHOuoKLcNf.aBhHQUtyPa2XH.uIDZGy5LM3G/BN.Eq',
     role: 'admin',
     namaLengkap: 'Administrator'
   }

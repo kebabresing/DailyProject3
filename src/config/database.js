@@ -3,75 +3,10 @@ const isVercel = process.env.VERCEL === '1';
 const hasSupabase = !!(process.env.SUPABASE_URL && process.env.SUPABASE_KEY &&
   !process.env.SUPABASE_URL.includes('xxxxxxxx'));
 
-// Data seed berdasarkan nama wisudawan terbaik UMM (sumber publik: umm.ac.id)
-const seedData = [
-  { id: 1, namaLengkap: 'Lidya Fanky Oktavia Putri', prodi: 'Informatika', tahunLulus: 2023, kampus: 'Universitas Muhammadiyah Malang', status: 'Teridentifikasi dari Sumber Publik', confidenceScore: 97, jejak: 'Website UMM: Wisudawan Terbaik FT Periode 3/2023, IPK 3.97' },
-  { id: 2, namaLengkap: 'Ahmad Junjung Sudrajat', prodi: 'Informatika', tahunLulus: 2023, kampus: 'Universitas Muhammadiyah Malang', status: 'Teridentifikasi dari Sumber Publik', confidenceScore: 94, jejak: 'Website UMM: Wisudawan Terbaik FT Periode 3/2023, IPK 3.94' },
-  { id: 3, namaLengkap: 'Aris Muhandisin', prodi: 'Informatika', tahunLulus: 2023, kampus: 'Universitas Muhammadiyah Malang', status: 'Teridentifikasi dari Sumber Publik', confidenceScore: 94, jejak: 'Website UMM: Wisudawan Terbaik FT Periode 3/2023, IPK 3.94' },
-  { id: 4, namaLengkap: 'Navira Rahma Salsabila', prodi: 'Informatika', tahunLulus: 2023, kampus: 'Universitas Muhammadiyah Malang', status: 'Teridentifikasi dari Sumber Publik', confidenceScore: 100, jejak: 'Website UMM: Wisudawan Terbaik FT Periode 4/2023, IPK Sempurna 4.00' },
-  { id: 5, namaLengkap: 'Muhammad Rafi Nashrullah', prodi: 'Informatika', tahunLulus: 2023, kampus: 'Universitas Muhammadiyah Malang', status: 'Teridentifikasi dari Sumber Publik', confidenceScore: 95, jejak: 'Website UMM: Wisudawan Terbaik 2 FT Periode 4/2023, IPK 3.95' },
-  { id: 6, namaLengkap: 'Ardana Firmansyah', prodi: 'Informatika', tahunLulus: 2023, kampus: 'Universitas Muhammadiyah Malang', status: 'Teridentifikasi dari Sumber Publik', confidenceScore: 93, jejak: 'Website UMM: Wisudawan Terbaik 3 FT Periode 4/2023, IPK 3.93' },
-  { id: 7, namaLengkap: 'Hania Pratiwi Ningrum', prodi: 'Informatika', tahunLulus: 2024, kampus: 'Universitas Muhammadiyah Malang', status: 'Teridentifikasi dari Sumber Publik', confidenceScore: 96, jejak: 'Website UMM: Wisudawan Terbaik FT Periode 2/2024' },
-  { id: 8, namaLengkap: 'Muhammad Hidayat', prodi: 'Informatika', tahunLulus: 2024, kampus: 'Universitas Muhammadiyah Malang', status: 'Perlu Verifikasi Manual', confidenceScore: 55, jejak: 'Website UMM: Wisudawan Terbaik FT Periode 2/2024, nama umum perlu verifikasi LinkedIn' },
-  { id: 9, namaLengkap: 'Chintya Tria Diana Oktaviani', prodi: 'Informatika', tahunLulus: 2024, kampus: 'Universitas Muhammadiyah Malang', status: 'Teridentifikasi dari Sumber Publik', confidenceScore: 91, jejak: 'Website UMM: Wisudawan Terbaik FT Periode 2/2024' },
-  { id: 10, namaLengkap: 'Putri Maharani Isnainiyah', prodi: 'Informatika', tahunLulus: 2024, kampus: 'Universitas Muhammadiyah Malang', status: 'Teridentifikasi dari Sumber Publik', confidenceScore: 98, jejak: 'Website UMM: Wisudawan Terbaik 1 FT Periode 6/2024' },
-  { id: 11, namaLengkap: 'Dewi Nadhiroh', prodi: 'Informatika', tahunLulus: 2022, kampus: 'Universitas Muhammadiyah Malang', status: 'Teridentifikasi dari Sumber Publik', confidenceScore: 88, jejak: 'Website UMM: Wisudawan Terbaik Informatika Periode III 2021/2022, IPK 3.77' },
-  { id: 12, namaLengkap: 'Ahmad Taufik', prodi: 'Pendidikan Bahasa Arab', tahunLulus: 2024, kampus: 'Universitas Muhammadiyah Malang', status: 'Teridentifikasi dari Sumber Publik', confidenceScore: 95, jejak: 'Website UMM: Wisudawan Terbaik FAI Wisuda ke-116/2024' },
-  { id: 13, namaLengkap: 'Queen Salsabila Jasmine', prodi: 'Hubungan Internasional', tahunLulus: 2024, kampus: 'Universitas Muhammadiyah Malang', status: 'Teridentifikasi dari Sumber Publik', confidenceScore: 96, jejak: 'Website UMM: Wisudawan Terbaik I HI FISIP Yudisium Periode II/2024' },
-  { id: 14, namaLengkap: 'Rafi Nuryantoro Putri', prodi: 'Hubungan Internasional', tahunLulus: 2024, kampus: 'Universitas Muhammadiyah Malang', status: 'Perlu Verifikasi Manual', confidenceScore: 55, jejak: 'Website UMM: Wisudawan Terbaik II HI FISIP, belum ditemukan profil LinkedIn' },
-  { id: 15, namaLengkap: 'Cepi Novia Tristantri', prodi: 'Hubungan Internasional', tahunLulus: 2024, kampus: 'Universitas Muhammadiyah Malang', status: 'Teridentifikasi dari Sumber Publik', confidenceScore: 82, jejak: 'PWMU.co: Disebut wisudawan berprestasi HI UMM November 2024' }
-];
+// Data fallback kosong — semua data bersumber dari Supabase
+const fullSeedData = [];
 
-// ============================================================
-// Data generator untuk auto-fill 523 data awal (untuk Vercel/Lokal)
-// ============================================================
-function generateInitialData() {
-  const data = JSON.parse(JSON.stringify(seedData));
-  const target = 523;
-  
-  const namaDepan = ['Budi', 'Siti', 'Agus', 'Wati', 'Andi', 'Dewi', 'Ahmad', 'Rina', 'Doni', 'Sari', 'Eko', 'Siska', 'Wahyu', 'Rini', 'Hendra', 'Nurul', 'Rizky', 'Putri', 'Fajar', 'Ayu'];
-  const namaBelakang = ['Santoso', 'Wijaya', 'Kusuma', 'Pratama', 'Sari', 'Hidayat', 'Putra', 'Setiawan', 'Nugroho', 'Lestari', 'Saputra', 'Wahyuni', 'Kurniawan', 'Ramadhani', 'Prakoso', 'Utami', 'Firmansyah', 'Indah'];
-  const prodiList = ['Informatika', 'Hukum', 'Manajemen', 'Ilmu Komunikasi', 'Psikologi', 'Akuntansi', 'Teknik Sipil', 'Kedokteran', 'Pendidikan Bahasa Inggris', 'Sosiologi', 'Hubungan Internasional'];
 
-  let currentId = 16;
-  while (data.length < target) {
-    const depan = namaDepan[Math.floor(Math.random() * namaDepan.length)];
-    const belakang = namaBelakang[Math.floor(Math.random() * namaBelakang.length)];
-    const suffix = data.length > 100 ? ` ${String.fromCharCode(65 + (data.length % 26))}` : '';
-    const prodi = prodiList[Math.floor(Math.random() * prodiList.length)];
-    const tahun = Math.floor(Math.random() * (2024 - 2015 + 1)) + 2015;
-    
-    const rand = Math.random();
-    let status, score, jejak;
-    if (rand < 0.7) {
-      status = 'Teridentifikasi dari Sumber Publik';
-      score = Math.floor(Math.random() * 21) + 80;
-      jejak = 'Terdeteksi melalui sistem pelacakan (LinkedIn / Jurnal) - terverifikasi.';
-    } else if (rand < 0.9) {
-      status = 'Perlu Verifikasi Manual';
-      score = Math.floor(Math.random() * 21) + 40;
-      jejak = 'Ada kesamaan identitas pada database publik, perlu konfirmasi manual dari admin.';
-    } else {
-      status = 'Belum Ditemukan di Sumber Publik';
-      score = Math.floor(Math.random() * 25) + 5;
-      jejak = 'Tidak ada catatan digital publik yang konklusif sejauh ini.';
-    }
-
-    data.push({
-      id: currentId++,
-      namaLengkap: `${depan} ${belakang}${suffix}`,
-      prodi,
-      tahunLulus: tahun,
-      kampus: 'Universitas Muhammadiyah Malang',
-      status,
-      confidenceScore: score,
-      jejak
-    });
-  }
-  return data;
-}
-
-const fullSeedData = generateInitialData();
 
 // ============================================================
 // MODE 1: In-Memory Database (untuk Vercel / Serverless)
@@ -92,6 +27,19 @@ function createMemoryDB() {
         ).sort((a, b) => b.id - a.id);
       }
       return [...data].sort((a, b) => b.id - a.id);
+    },
+    getAlumniPaginated: async (searchQuery = '', page = 1, limit = 50) => {
+      let filtered = searchQuery
+        ? data.filter(a =>
+            a.namaLengkap.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (a.prodi||'').toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (a.status||'').toLowerCase().includes(searchQuery.toLowerCase())
+          )
+        : [...data];
+      filtered.sort((a, b) => b.id - a.id);
+      const total = filtered.length;
+      const alumniList = filtered.slice((page - 1) * limit, page * limit);
+      return { alumniList, total };
     },
     getAlumniById: async (id) => {
       return data.find(a => a.id === parseInt(id)) || null;
@@ -180,7 +128,9 @@ async function createSupabaseDB() {
   // Map camelCase app → snake_case Supabase
   const toRow = (d) => ({
     nama_lengkap: d.namaLengkap,
+    nim: d.nim || null,
     prodi: d.prodi,
+    fakultas: d.fakultas || null,
     tahun_lulus: parseInt(d.tahunLulus) || 0,
     kampus: d.kampus || 'Universitas Muhammadiyah Malang',
     status: d.status,
@@ -192,7 +142,9 @@ async function createSupabaseDB() {
   const fromRow = (r) => r ? ({
     id: r.id,
     namaLengkap: r.nama_lengkap,
+    nim: r.nim || '-',
     prodi: r.prodi,
+    fakultas: r.fakultas || '-',
     tahunLulus: r.tahun_lulus,
     kampus: r.kampus,
     status: r.status,
@@ -214,16 +166,33 @@ async function createSupabaseDB() {
 
   return {
     getAlumni: async (searchQuery = '') => {
+      // Dipakai laporan statistik — semua data
+      let q = supabase.from('alumni').select('*').order('id', { ascending: false }).limit(1000);
       if (searchQuery) {
-        const q = searchQuery.toLowerCase();
-        const { data } = await supabase.from('alumni')
-          .select('*')
-          .or(`nama_lengkap.ilike.%${q}%,prodi.ilike.%${q}%,status.ilike.%${q}%,kampus.ilike.%${q}%`)
-          .order('id', { ascending: false });
-        return (data || []).map(fromRow);
+        q = q.or(`nama_lengkap.ilike.%${searchQuery}%,prodi.ilike.%${searchQuery}%,status.ilike.%${searchQuery}%,nim.ilike.%${searchQuery}%,fakultas.ilike.%${searchQuery}%`);
       }
-      const { data } = await supabase.from('alumni').select('*').order('id', { ascending: false });
+      const { data } = await q;
       return (data || []).map(fromRow);
+    },
+    getAlumniPaginated: async (searchQuery = '', page = 1, limit = 50) => {
+      // Dipakai Data Master — hanya yang Teridentifikasi dari Sumber Publik
+      const from = (page - 1) * limit;
+      const to = from + limit - 1;
+      let q = supabase.from('alumni')
+        .select('*', { count: 'exact' })
+        .eq('status', 'Teridentifikasi dari Sumber Publik')
+        .order('id', { ascending: false })
+        .range(from, to);
+      if (searchQuery) {
+        q = supabase.from('alumni')
+          .select('*', { count: 'exact' })
+          .eq('status', 'Teridentifikasi dari Sumber Publik')
+          .or(`nama_lengkap.ilike.%${searchQuery}%,prodi.ilike.%${searchQuery}%,nim.ilike.%${searchQuery}%,fakultas.ilike.%${searchQuery}%`)
+          .order('id', { ascending: false })
+          .range(from, to);
+      }
+      const { data, count } = await q;
+      return { alumniList: (data || []).map(fromRow), total: count || 0 };
     },
     getAlumniById: async (id) => {
       const { data } = await supabase.from('alumni').select('*').eq('id', id).single();
@@ -266,6 +235,7 @@ async function getDB() {
 
 module.exports = {
   getAlumni: async (q) => (await getDB()).getAlumni(q),
+  getAlumniPaginated: async (q, page, limit) => (await getDB()).getAlumniPaginated(q, page, limit),
   getAlumniById: async (id) => (await getDB()).getAlumniById(id),
   addAlumni: async (data) => (await getDB()).addAlumni(data),
   updateAlumni: async (id, data) => (await getDB()).updateAlumni(id, data),

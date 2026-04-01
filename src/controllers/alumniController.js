@@ -2,8 +2,11 @@ const Alumni = require('../models/alumniModel');
 
 exports.index = async (req, res) => {
   const search = req.query.search || '';
-  const alumniList = await Alumni.getAll(search);
-  res.render('index', { title: 'Dashboard - Sistem Pelacakan Alumni', alumniList, search });
+  const page = parseInt(req.query.page) || 1;
+  const limit = 50;
+  const { alumniList, total } = await Alumni.getAllPaginated(search, page, limit);
+  const totalPages = Math.ceil(total / limit);
+  res.render('index', { title: 'Data Master - Sistem Pelacakan Alumni', alumniList, search, page, totalPages, total });
 };
 
 exports.formAdd = (req, res) => {
