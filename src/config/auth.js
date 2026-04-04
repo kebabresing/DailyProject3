@@ -7,7 +7,7 @@ const USERS = [
     id: 1,
     username: 'admin',
     // Password: Dp3!406
-    passwordHash: '$2b$10$3FDTDt8YAkqPHOuoKLcNf.aBhHQUtyPa2XH.uIDZGy5LM3G/BN.Eq',
+    passwordHash: '$2b$10$UMl5Hp1KQ5G1NjfJCy.9euY2F6cs/Hkq2VJJ3Zqiokvm.ryiqmPd6',
     role: 'admin',
     namaLengkap: 'Administrator'
   }
